@@ -167,6 +167,16 @@ def Educated_Distribution(item_data):
     plt.legend()
     plt.show()
 
+    
+def Worldcloud_Position():
+    with open("WorldCloud.txt", "r", encoding='utf-8') as f:
+        t = f.read()
+    ls = jieba.lcut(t)
+    txt = " ".join(ls)
+    w = wordcloud.WordCloud(width=1000, height=700, background_color="white", font_path="msyh.ttc")
+    w.generate(txt)
+    w.to_file("grwordcloud.png")
+    
 
 def main():
     item_data = pd.read_csv('清洗后数据集.csv', encoding='utf-8')
@@ -183,6 +193,8 @@ def main():
     len(item_data['Address'].unique())  # 统计数据集中的Address列有多少个值是独立不重复的
 
 
+    Worldcloud_Position()
+    
     City_Distribution(item_data)
     City_Top_10(item_data)
 
